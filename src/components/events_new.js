@@ -32,7 +32,7 @@ class EventsNew extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, pristine, submitting } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <div>
@@ -52,7 +52,7 @@ class EventsNew extends Component {
           />
         </div>
         <div>
-          <input type="submit" value="Submit" disabled={false} />
+          <input type="submit" value="Submit" disabled={pristine || submitting} />
           <Link to="/">Cancel</Link>
         </div>
       </form>
@@ -63,8 +63,8 @@ class EventsNew extends Component {
 const validate = values => {
   const errors = {};
 
-  if (!values.title) errors.title = "Enter a title, Please.";
-  if (!values.body) errors.body = "Enter a body, Please.";
+  if (!values.title) errors.title = "Enter a title, please.";
+  if (!values.body) errors.body = "Enter a body, please.";
 
   return errors;
 };
