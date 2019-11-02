@@ -20,15 +20,18 @@ export const postEvents = values => async dispatch => {
 };
 
 export const putEvent = values => async dispatch => {
-    const response = await axios.put(`${ROOT_URL}/events/${values.id}${QUERYSTRING}`, values)
-    dispatch({ type: UPDATE_EVENTS, response })
-}
+  const response = await axios.put(
+    `${ROOT_URL}/events/${values.id}${QUERYSTRING}`,
+    values
+  );
+  dispatch({ type: UPDATE_EVENTS, response });
+};
 export const getEvent = id => async dispatch => {
-    const response = await axios.get(`${ROOT_URL}/events/${id}${QUERYSTRING}`)
-    dispatch({ type: READ_EVENT, response })
-}
+  const response = await axios.get(`${ROOT_URL}/events/${id}${QUERYSTRING}`);
+  dispatch({ type: READ_EVENT, response });
+};
 
 export const deleteEvents = id => async dispatch => {
-  const response = await axios.delete(`${ROOT_URL}/events/${id}${QUERYSTRING}`);
+  await axios.delete(`${ROOT_URL}/events/${id}${QUERYSTRING}`);
   dispatch({ type: DELETE_EVENTS, id });
 };

@@ -3,6 +3,16 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 import { readEvents } from "../actions/";
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn
+} from "material-ui/Table";
+import { FloatingActionButton } from "material-ui";
+import { ContentAdd } from "material-ui/svg-icons";
 
 class EventsIndex extends Component {
   componentDidMount() {
@@ -11,32 +21,40 @@ class EventsIndex extends Component {
 
   renderEvents() {
     return _.map(this.props.events, event => (
-      <tr key={event.id}>
-        <td>{event.id}</td>
-        <td>
+      <TableRow key={event.id}>
+        <TableRowColumn>{event.id}</TableRowColumn>
+        <TableRowColumn>
           <Link to={`/events/${event.id}`}>{event.title}</Link>
-        </td>
-        <td>{event.body}</td>
-      </tr>
+        </TableRowColumn>
+        <TableRowColumn>{event.body}</TableRowColumn>
+      </TableRow>
     ));
   }
 
   render() {
+    const style = {
+      position: "fixed",
+      right: 20,
+      bottom: 20
+    };
     return (
       <React.Fragment>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Body</th>
-            </tr>
-          </thead>
+        <FloatingActionButton style={style} containerElement={<Link to="/events/new" />}>
+          <ContentAdd />
+        </FloatingActionButton>
+        <Table>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow>
+              <TableHeaderColumn>ID</TableHeaderColumn>
+              <TableHeaderColumn>Title</TableHeaderColumn>
+              <TableHeaderColumn>Body</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
 
-          <tbody>{this.renderEvents()}</tbody>
-        </table>
-
-        <Link to="/events/new">New Event</Link>
+          <TableBody displayRowCheckbox={false}>
+            {this.renderEvents()}
+          </TableBody>
+        </Table>
       </React.Fragment>
     );
   }
